@@ -5,14 +5,38 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     public Transform lookAt;
-
+    public Transform building;
+    public Transform drawPosition;
     private Vector3 desiredPosition;
+    [SerializeField] private Vector3 drawOffset;
+    [SerializeField] private float drawSpeed = 1.0f;
     [SerializeField] private float offset = 0.5f;
     [SerializeField] private float distance = 3.5f;
-    [SerializeField] float necessaryDistance = 1f;
+    
+    public enum CameraMode { menu, follow, draw };
+    public CameraMode camMode = CameraMode.follow;
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Start()
+    {
+        //drawOffset = new Vector3(0, 5, -6);
+    }
+
+    private void Update()
+    {
+        switch(camMode)
+        {
+            case CameraMode.menu:
+                break;
+            case CameraMode.follow:
+                FollowPlayer();
+                break;
+            case CameraMode.draw:
+                DrawCameraBack();
+                break;
+        }   
+    }
+
+    void FollowPlayer()
     {
         //Debug.Log("Camera pos: " + transform.position + " Player Pos: " + lookAt.position + " Desired Pos : " + desiredPosition);
         Vector2 player = new Vector2(lookAt.position.x, lookAt.position.z);
@@ -31,4 +55,14 @@ public class PlayerCamera : MonoBehaviour
         }
     
     }
+
+    public void DrawCameraBack()
+    {
+        desiredPosition = drawPosition.position + drawOffset;
+        Vector3 dir = desiredPosition - transform.position;
+        transform.position += dir * drawSpeed * Time.deltaTime;
+        transform.LookAt(building.position + (transform.up * offset));
+        
+    }
+
 }

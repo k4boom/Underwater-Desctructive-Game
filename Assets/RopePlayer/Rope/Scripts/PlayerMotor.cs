@@ -5,24 +5,42 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
+    private Rigidbody rb;
 
     [SerializeField]  private float baseSpeed = 10.0f;
     [SerializeField]  private float rotSpeedX = 3.0f;
     [SerializeField]  private float rotSpeedY = 1.5f;
     [SerializeField] private Vector2 inputs;
+    [SerializeField] private bool isLimited;
+    [SerializeField] public float limit = 10.0f;
+    [SerializeField] private float finishSpeed = 1.0f;
+    private float currentLimit;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        currentLimit = limit;
     }
 
     private void Update()
     {
         if(Input.GetMouseButton(0))
         {
-            Move();
+            if (isLimited)
+                MoveWithLimit();
+            else
+                Move();
         }
     }
-
+    
+    private void MoveWithLimit()
+    {
+        if(currentLimit > 0)
+        {
+            Move();
+        }
+        currentLimit -= finishSpeed * Time.deltaTime;
+    }
     private void Move()
     {
         Vector3 moveVector = transform.forward * baseSpeed;
@@ -51,7 +69,8 @@ public class PlayerMotor : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(moveVector);
         }
 
-        controller.Move(moveVector * Time.deltaTime);
+        
+        controller.Move(moveVector * Time.deltaTime); 
     }
 
 }

@@ -11,6 +11,9 @@ namespace Rope
         GameObject ropeHead;
 
         [SerializeField]
+        public GameObject ropeSource;
+
+        [SerializeField]
         int fragmentCount = 80;
 
         [SerializeField]
@@ -24,7 +27,8 @@ namespace Rope
 
         GameObject[] fragments;
 
-        float activeFragmentCount;
+        [SerializeField]
+        public float activeFragmentCount;
 
         float[] xPositions;
         float[] yPositions;
@@ -39,12 +43,14 @@ namespace Rope
         void Start()
         {
             cam = Camera.main.gameObject;
-            activeFragmentCount = fragmentCount / 2;
+            activeFragmentCount = 5;//fragmentCount;// / 2;
 
             fragments = new GameObject[fragmentCount];
 
             //var position = Vector3.zero;
             var position = ropeHead.transform.position - respawnOffset;
+            //var position = ropeSource.transform.position;
+           
 
             for (var i = 0; i < fragmentCount; i++)
             {
@@ -65,7 +71,7 @@ namespace Rope
                     FixedJoint fd = fragments[i].AddComponent<FixedJoint>();
                     fd.connectedBody = ropeHead.GetComponent<Rigidbody>();
                     cam.GetComponent<PlayerCamera>().lookAt = ropeHead.transform;
-                    ropeHead.AddComponent<Stabbing>();
+                    //ropeHead.AddComponent<Stabbing>();
                 }
 
                 /*
@@ -106,14 +112,15 @@ namespace Rope
                     fragments[i].GetComponent<Rigidbody>().isKinematic = true;
                     */
 
-                        /*FIRST ONE
-                        fragments[i].GetComponent<Rigidbody>().position = Vector3.zero;
+                       /*
+                        fragments[i].GetComponent<Rigidbody>().position = ropeSource.transform.position;
                         fragments[i].GetComponent<Rigidbody>().isKinematic = true;
                         */
                 }
                 else
                 {
-                    fragments[i].GetComponent<Rigidbody>().isKinematic = false;
+                    fragments[i].GetComponent<Rigidbody>().position = ropeSource.transform.position;
+                    fragments[i].GetComponent<Rigidbody>().isKinematic = true;
                 }
                 //fragments[i].GetComponent<Rigidbody>().useGravity = false;
             }
