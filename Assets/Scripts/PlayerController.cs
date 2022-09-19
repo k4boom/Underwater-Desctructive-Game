@@ -6,8 +6,9 @@ using Rope;
 public class PlayerController : MonoBehaviour
 {
     public enum PlayerMode { Menu, Move, DrawBack};
-    public PlayerMode mode = PlayerMode.Move;
+    public PlayerMode mode = PlayerMode.Menu;
     public GameObject player;
+    public GameObject submarinee;
     public GameObject rope;
     public GameObject cam;
     [SerializeField] private float drawBackForce = 5f;
@@ -15,7 +16,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     public BuildingManager bm;
     private bool allowMovement = false;
-    public SubmarineMovement submarine;
+    public bool anchorCanDraw = true;
+    private bool submarineCanMove = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,12 +44,74 @@ public class PlayerController : MonoBehaviour
             case PlayerMode.Move:
                 break;
             case PlayerMode.DrawBack:
-                DrawBackWithInput();
+                PullBack();
                 break;
+        }
+
+        if(transform.position.z < submarinee.transform.position.z + 2.5f)
+        {
+            anchorCanDraw = false;
+            submarineCanMove = true;
+            if(!player.GetComponent<FixedJoint>())
+            {
+                GameManager.Instance.chainSpawner.gameObject.AddComponent<FixedJoint>().connectedBody = submarinee.GetComponent<Rigidbody>();
+                player.AddComponent<FixedJoint>().connectedBody = submarinee.GetComponent<Rigidbody>();
+                GameManager.Instance.MakeChainsInactive();
+                //player.transform.SetParent(submarinee.transform);
+            }
+
         }
     }
 
-    
+    private bool counter = false;
+    void PullBack()
+    {
+        cam.GetComponent<PlayerCamera>().camMode = PlayerCamera.CameraMode.draw;
+        if (Input.GetMouseButton(0))
+        {
+            counter = true;
+        } else
+        {
+            counter = false;
+            submarinee.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (counter) PullIt();
+    }
+
+    void PullIt()
+    {
+        
+        if (anchorCanDraw)
+        {
+
+            if (!GetComponent<Stabber>().sj)
+            {
+                GameManager.Instance.AddForceToChains(-Vector3.forward * 10f);
+                player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.identity, 0.1f);
+                player.GetComponent<Rigidbody>().mass = 0.01f;
+                player.GetComponent<Rigidbody>().AddForce(-transform.forward * 10f);
+            }
+            else
+            {
+                drawBackForce += drawBackForce * Time.fixedDeltaTime;
+                player.GetComponent<Rigidbody>().mass = 0.01f;
+                player.GetComponent<Rigidbody>().AddForce(-transform.forward * drawBackForce * 2f);
+            }
+        } else
+        {
+            submarinee.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            submarinee.GetComponent<Rigidbody>().AddForce(-Vector3.forward * 150f + Vector3.up * 100f);
+        }
+    }
+
+
+    /// <summary>
+    /// THIS IS PREVIOUS WORK
+    /// </summary>
 
     private void DrawBack()
     {
@@ -77,7 +141,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
-            submarine.MoveWithMouseInput();
+            //submarine.MoveWithMouseInput();
             StartCoroutine("ReleaseWallWithDelay");
             if(allowMovement)   DrawBack();
         }
@@ -85,7 +149,10 @@ public class PlayerController : MonoBehaviour
     IEnumerator ReleaseWallWithDelay()
     {
         yield return new WaitForSeconds(2.0f);
-        bm.releaseWalls = true;
+        //bm.releaseWalls = true;
+        GetComponent<Stabbing>().ChangeTag();
+        GetComponent<Rigidbody>().isKinematic = false;
+        //GameManager.Instance.AddTagToCollision();
         allowMovement = true;
     }
 }

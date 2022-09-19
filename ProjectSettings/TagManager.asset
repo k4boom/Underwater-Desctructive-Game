@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Stab
+  - Floor
+  - Projectile
+  - Rope
+  - DestroyableBuilding
+  - Chain
   layers:
   - Default
   - TransparentFX
@@ -14,8 +19,8 @@ TagManager:
   - UI
   - Rope
   - Player
-  - 
-  - 
+  - Chain
+  - UncollidedBuilding
   - 
   - 
   - 

@@ -14,17 +14,24 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] private bool isLimited;
     [SerializeField] public float limit = 10.0f;
     [SerializeField] private float finishSpeed = 1.0f;
+    
     private float currentLimit;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
+        if (PlayerPrefs.HasKey("leftLimit"))
+            limit = PlayerPrefs.GetFloat("leftLimit");
+        else
+            PlayerPrefs.SetFloat("leftLimit", limit);
         currentLimit = limit;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButton(0))
+        //UIManager.Instance.leftLimit.text = currentLimit.ToString() + " m";
+
+        if(Input.GetMouseButton(0) && PlayerController.Instance.mode == PlayerController.PlayerMode.Move)
         {
             if (isLimited)
                 MoveWithLimit();

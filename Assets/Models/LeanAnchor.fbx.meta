@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: 5572e4aa10d7a8f4a9898e48a7b7a865
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      74: 7847078983540846696
+    second: second.001|Camera.001|Camera|CameraAction
+  - first:
+      74: -3977987577721673197
+    second: second.001|second.001|second.001|CameraAction
+  - first:
+      74: -8500653980867192864
+    second: second.001|Torus.000|Torus.000|CameraAction
+  - first:
+      74: 3473036798489401598
+    second: second.001|Torus.001|Torus.001|CameraAction
+  - first:
+      74: -6273128713633609470
+    second: second.001|Torus.002|Torus.002|CameraAction
+  - first:
+      74: -2444832454659673042
+    second: second.001|Torus.003|Torus.003|CameraAction
+  - first:
+      74: 1108260056046907486
+    second: second.001|Torus.004|Torus.004|CameraAction
+  - first:
+      74: 7426893092377387583
+    second: second.001|Torus.005|Torus.005|CameraAction
+  - first:
+      74: 6733135682042632803
+    second: second.001|Torus.006|Torus.006|CameraAction
+  - first:
+      74: 1182187304516662194
+    second: second.001|Torus.007|Torus.007|CameraAction
+  - first:
+      74: -8361102638479843899
+    second: second.001|Torus.008|Torus.008|CameraAction
+  - first:
+      74: -6350276600954841861
+    second: second.001|Torus.009|Torus.009|CameraAction
+  - first:
+      74: 660477159797586430
+    second: second.001|Torus.010|Torus.010|CameraAction
+  - first:
+      74: 1780575331557378146
+    second: second.001|Torus.011|Torus.011|CameraAction
+  - first:
+      74: -6098807842281982455
+    second: second.001|Torus.012|Torus.012|CameraAction
+  - first:
+      74: 3499326059209826867
+    second: second.001|Torus.013|Torus.013|CameraAction
+  - first:
+      74: 8152034111243423715
+    second: second.001|Torus.015|Torus.015|CameraAction
+  - first:
+      74: 8848597359342823354
+    second: second.001|Torus.016|Torus.016|CameraAction
+  - first:
+      74: 3626074085239904196
+    second: second.001|Torus.018|Torus.018|CameraAction
+  - first:
+      74: -3933481528609835706
+    second: second.001|Torus.022|Torus.022|CameraAction
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

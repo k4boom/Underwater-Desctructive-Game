@@ -6,6 +6,7 @@ public class PlayerCamera : MonoBehaviour
 {
     public Transform lookAt;
     public Transform building;
+    public Transform submarine;
     public Transform drawPosition;
     private Vector3 desiredPosition;
     [SerializeField] private Vector3 drawOffset;
@@ -14,7 +15,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float distance = 3.5f;
     
     public enum CameraMode { menu, follow, draw };
-    public CameraMode camMode = CameraMode.follow;
+    public CameraMode camMode = CameraMode.menu;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class PlayerCamera : MonoBehaviour
         switch(camMode)
         {
             case CameraMode.menu:
+
                 break;
             case CameraMode.follow:
                 FollowPlayer();
@@ -61,7 +63,9 @@ public class PlayerCamera : MonoBehaviour
         desiredPosition = drawPosition.position + drawOffset;
         Vector3 dir = desiredPosition - transform.position;
         transform.position += dir * drawSpeed * Time.deltaTime;
-        transform.LookAt(building.position + (transform.up * offset));
+        Vector3 diff = submarine.position - building.position;
+        Vector3 drawLookAtPosition = building.position + (diff / 2);
+        transform.LookAt(drawLookAtPosition + (transform.up * offset));
         
     }
 
