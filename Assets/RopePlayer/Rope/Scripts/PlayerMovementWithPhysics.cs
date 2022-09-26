@@ -42,8 +42,7 @@ public class PlayerMovementWithPhysics : MonoBehaviour
             PlayerController.Instance.mode = PlayerController.PlayerMode.DrawBack;
         }
 
-
-        if (Input.GetMouseButton(0) && PlayerController.Instance.mode == PlayerController.PlayerMode.Move && GameManager.Instance.anchorCanMove && currentLimit > 0)
+        if (Input.touchCount > 0 && PlayerController.Instance.mode == PlayerController.PlayerMode.Move && GameManager.Instance.anchorCanMove && currentLimit > 0)
         {
             allowedToMove = true;
             foreach (Rigidbody chain in chains)
@@ -81,25 +80,18 @@ public class PlayerMovementWithPhysics : MonoBehaviour
     void Fly()
     {
         rb.velocity = moveVector * moveSpeed;
-        //rb.AddForce(moveVector * moveSpeed);
     }
-    private int counter = 0;
     private void Move()
     {
         currentLimit -= 0.1f;
-        Debug.Log(counter++); // 25 ->500 50 -> 1200
         moveVector = transform.forward * baseSpeed;
 
 
-        //TODO: NEED TO FIND THAT AN ALTERNATIVE
-        //Vector3 inputs = Manager.Instance.GetPlayerInput();
-        var ver = Input.GetAxis("Mouse X");
-        var hor = Input.GetAxis("Mouse Y");
-        inputs = new Vector2(ver, hor);
+        Vector3 inputs = InputManager.Instance.GetPlayerInput();
 
 
-        Vector3 yaw = inputs.x * transform.right * rotSpeedX;// * Time.deltaTime;
-        Vector3 pitch = inputs.y * transform.up * rotSpeedY;//* Time.deltaTime;
+        Vector3 yaw = inputs.x * transform.right * rotSpeedX * Time.deltaTime;
+        Vector3 pitch = inputs.y * transform.up * rotSpeedY * Time.deltaTime;
         Vector3 dir = yaw + pitch;
 
         float maxX = Quaternion.LookRotation(moveVector + dir).eulerAngles.x;

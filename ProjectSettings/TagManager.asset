@@ -10,6 +10,7 @@ TagManager:
   - Rope
   - DestroyableBuilding
   - Chain
+  - StarUI
   layers:
   - Default
   - TransparentFX

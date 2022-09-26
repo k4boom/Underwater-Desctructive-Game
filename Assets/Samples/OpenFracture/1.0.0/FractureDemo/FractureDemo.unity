@@ -195,6 +195,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: bc95bf24db952a34ea975675754827af, type: 2}
     - target: {fileID: 8275927625967993986, guid: 1ed44f6ab425aa44aa5197d3b823c04c, type: 3}
+      propertyPath: isEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275927625967993986, guid: 1ed44f6ab425aa44aa5197d3b823c04c, type: 3}
       propertyPath: fractureOptions.fragmentCount
       value: 50
       objectReference: {fileID: 0}
@@ -411,6 +415,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!54 &84233252
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1376,6 +1383,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: bc95bf24db952a34ea975675754827af, type: 2}
     - target: {fileID: 8275927625967993986, guid: 1ed44f6ab425aa44aa5197d3b823c04c, type: 3}
+      propertyPath: isEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275927625967993986, guid: 1ed44f6ab425aa44aa5197d3b823c04c, type: 3}
       propertyPath: fractureOptions.fragmentCount
       value: 50
       objectReference: {fileID: 0}
@@ -1578,6 +1589,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 0
+  shouldFrac: 0
+  isFractured: 0
 --- !u!65 &1616747028
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2329,6 +2343,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2380,6 +2397,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2431,6 +2451,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,6 +2505,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2533,6 +2559,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2584,6 +2613,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,6 +2667,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2686,6 +2721,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2737,6 +2775,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2788,6 +2829,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2839,6 +2883,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!114 &1852022794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2890,6 +2937,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   currentRefractureCount: 0
+  isEnabled: 1
+  shouldFrac: 0
+  isFractured: 0
 --- !u!1001 &2003522426
 PrefabInstance:
   m_ObjectHideFlags: 0

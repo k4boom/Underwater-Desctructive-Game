@@ -19,7 +19,7 @@ public class Stabber : MonoBehaviour
             if (PlayerController.Instance.mode == PlayerController.PlayerMode.DrawBack && sj == null && !stabbedObject.transform.CompareTag("Stab"))
             {
                 StartCoroutine("LeaveStabbedObject");
-                ChangeTag();
+                //ChangeTag();
 
                 stabbedObject.AddComponent<BoxCollider>();
                 stabbedObject.transform.tag = "Stab";
@@ -42,22 +42,19 @@ public class Stabber : MonoBehaviour
             stabbedObject = collision.gameObject;
 
             stabbedObject.transform.SetParent(transform);
-            //collision.transform.SetParent(transform);
+
             collision.rigidbody.mass = 0.01f;
-            //PlayerController.Instance.player.GetComponent<PlayerMovementWithPhysics>().enabled = false;
-            PlayerController.Instance.cam.GetComponent<PlayerCamera>().camMode = PlayerCamera.CameraMode.draw;
 
             //await Task.Delay(1000);
             PlayerController.Instance.mode = PlayerController.PlayerMode.DrawBack;
-
-            //Rigidbody rb = stabbedObject.GetComponent<Rigidbody>();
-            //if (!rb)    rb = stabbedObject.AddComponent<Rigidbody>();
+            PlayerController.Instance.ChangeCanBreak();
+            
             sj = gameObject.AddComponent<FixedJoint>();
             //sj.connectedBody = rb;
-            sj.breakForce = 500; // WhenIdle breaks at 150
+            sj.breakForce = 5500; // WhenIdle breaks at 150
 
-            //Try putting joints to the stabbedObject with others
-            
+            stabbedObject.GetComponent<Fracture>().isEnabled = true;
+
         }
 
 

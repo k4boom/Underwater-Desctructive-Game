@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/0.unity
     guid: 9a4c15487ceef7642b83d069bd40c977
   - enabled: 1
+    path: Assets/Scenes/Deneme Level 1.unity
+    guid: 55a5f2aba0d123e48ab9c8cead7c091f
+  - enabled: 0
     path: Assets/Scenes/Level 1.unity
     guid: a0ee4a07e68e35c43823278408ba7084
+  - enabled: 0
+    path: Assets/Scenes/dENEME.unity
+    guid: 935de2fca969eb4488cb259485f79dad
+  - enabled: 0
+    path: Assets/Scenes/Level 2.unity
+    guid: 7d3ec6a8c676dbd4fa0daf084314ddb5
+  - enabled: 0
+    path: Assets/Scenes/Level 3.unity
+    guid: 5f37c00d6a8fd394595447d578749444
   m_configObjects: {}

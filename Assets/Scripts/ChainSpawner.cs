@@ -42,7 +42,9 @@ public class ChainSpawner : MonoBehaviour
     private int counter = 0;
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        //if(Input.GetMouseButton(0))//taçdeðiþ
+        if(Input.touchCount > 0)//taçdeðiþ
+
         {
             counter++;
             if(counter>40)

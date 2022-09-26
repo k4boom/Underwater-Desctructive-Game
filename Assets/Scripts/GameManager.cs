@@ -5,32 +5,36 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     
-    public static GameManager Instance;
+    
     public GameObject lastChain;
     public Transform chainSpawner;
     public ChainSpawner cS;
     public Transform chainSource;
     public List<GameObject> chains;
+    private static GameManager _Instance;
+
+    public int numberOfDestructed = 0;
+    private int totalNumberOfBuildingParts;
+    public float destructionPercentage = 0f;
+    public Transform buildingParent;
+    public static GameManager Instance { get { return _Instance; } }
+
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (_Instance != null && _Instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
-            Instance = this;
+            _Instance = this;
         }
+        Application.targetFrameRate = 60;
     }
     
     private void Start()
     {
-        
-        /*
-        foreach(Transform child in chainSpawner.childCount)
-        {
-            chains.Add(child);
-        }*/
+        totalNumberOfBuildingParts = buildingParent.childCount - 4;
     }
 
     public bool anchorCanMove = true;
@@ -48,7 +52,7 @@ public class GameManager : MonoBehaviour
         }
         
 
-        if (lastChain.transform.position.z > chainSource.position.z - 0.5f)
+        if (lastChain && lastChain.transform.position.z > chainSource.position.z - 0.5f)
         {
             anchorCanMove = false;
             PlayerController.Instance.mode = PlayerController.PlayerMode.DrawBack;
@@ -92,67 +96,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /*
-    private static int numberOfDestructed;
-    private bool settedFree = false;
-    [SerializeField] private GameObject[] ceilingBlocks;
-    [SerializeField] private GameObject[] buildingBlocks;
-    [SerializeField]private List<GameObject> ceilingFragments;
-    [SerializeField] private List<GameObject> buildingFragments;
-    private void Start()
+
+    public void ReportDestructed()
     {
-        buildingFragments = new List<GameObject>();
-        ceilingFragments = new List<GameObject>();
-        foreach(GameObject block in ceilingBlocks)
-        {
-            foreach(Transform child in  block.transform)
-            {
-                ceilingFragments.Add(child.gameObject);
-            }
-        }
-
-        foreach (GameObject block in buildingBlocks)
-        {
-            foreach (Transform child in block.transform)
-            {
-                buildingFragments.Add(child.gameObject);
-            }
-        }
-
-
-    }
-
-    private bool tagsAreAdded = false;
-    public void AddTagToCollision()
-    {
-        if(!tagsAreAdded){
-            tagsAreAdded = true;
-            foreach (GameObject fragment in buildingFragments)
-            {
-                fragment.GetComponent<UnfreezeFragment>().triggerOptions.triggerAllowedTags.Add("DestroyableObject");
-                fragment.GetComponent<UnfreezeFragment>().triggerOptions.triggerAllowedTags.Add("Rope");
-            }
-        }
+        //Debug.Log((float)++numberOfDestructed/(float)totalNumberOfBuildingParts);
+        destructionPercentage = (float)++numberOfDestructed / (float)totalNumberOfBuildingParts;
     }
 
 
-    public void SetFree()
-    {
-        Debug.Log(numberOfDestructed++);
-        if(numberOfDestructed > 1 && !settedFree)
-        {
-            foreach(GameObject frag in ceilingFragments)
-            {
-                frag.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            }
-        }
-    }
-
-    private int numberOfDestructedFrags = 0;
-    public float destructionPercentage = 0f;
-    public void IncreaseDestructedNumber()
-    {
-        numberOfDestructedFrags++;
-        destructionPercentage = numberOfDestructedFrags / (float)buildingBlocks.Length;
-    }*/
 }

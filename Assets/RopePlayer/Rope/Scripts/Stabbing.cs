@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
+
+
+
+/*
+ * ---------------------------------------------
+ * DEPRECATED
+ * ---------------------------------------------
+ */
 public class Stabbing : MonoBehaviour
 {
     [SerializeField] private string stabTag = "Stab";

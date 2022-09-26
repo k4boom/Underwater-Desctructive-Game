@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Rope;
+using Obi;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class PlayerController : MonoBehaviour
     private bool allowMovement = false;
     public bool anchorCanDraw = true;
     private bool submarineCanMove = false;
+    public bool canBreak = false;
+    public ChainExtender cursor;
+
+    public GameObject cube;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,9 +33,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             Instance = this;
+            //DontDestroyOnLoad(gameObject);
         }
     }
 
+    private bool firstDraw = false;
+    public bool beforeDraw = false;
     private void Start()
     {
         cam = Camera.main.gameObject;
@@ -44,6 +53,7 @@ public class PlayerController : MonoBehaviour
             case PlayerMode.Move:
                 break;
             case PlayerMode.DrawBack:
+                if (!firstDraw) StartCoroutine("BeforeDraw");
                 PullBack();
                 break;
         }
@@ -54,6 +64,7 @@ public class PlayerController : MonoBehaviour
             submarineCanMove = true;
             if(!player.GetComponent<FixedJoint>())
             {
+                StartCoroutine("EndGameUI");
                 GameManager.Instance.chainSpawner.gameObject.AddComponent<FixedJoint>().connectedBody = submarinee.GetComponent<Rigidbody>();
                 player.AddComponent<FixedJoint>().connectedBody = submarinee.GetComponent<Rigidbody>();
                 GameManager.Instance.MakeChainsInactive();
@@ -63,12 +74,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator BeforeDraw()
+    {
+        firstDraw = true;
+        beforeDraw = true;
+        yield return new WaitForSeconds(0.5f);
+        cam.GetComponent<PlayerCamera>().camMode = PlayerCamera.CameraMode.draw;
+        yield return new WaitForSeconds(1f);
+        yield return null;
+
+    }
+
+    IEnumerator EndGameUI()
+    {
+        yield return new WaitForSeconds(2f);
+        UIManager.Instance.BringBeforeEndGameUI();
+    }
+
     private bool counter = false;
     void PullBack()
     {
-        cam.GetComponent<PlayerCamera>().camMode = PlayerCamera.CameraMode.draw;
-        if (Input.GetMouseButton(0))
+        Debug.Log(beforeDraw);
+        if(!beforeDraw) cam.GetComponent<PlayerCamera>().camMode = PlayerCamera.CameraMode.draw;
+        if (Input.touchCount > 0)
         {
+            beforeDraw = true;
+
             counter = true;
         } else
         {
@@ -79,8 +110,62 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (counter) PullIt();
+        //if (counter) PullIt(); // This is for joint based chain
+        if (counter)
+        {
+            PullRope();
+
+        } else
+        {
+            cube.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
     }
+
+    public IEnumerator ChangeCanBreak()
+    {
+        yield return new WaitForSeconds(0f);
+        canBreak = true;
+    }
+
+    void DrawCubeBack()
+    {
+        //cube.GetComponent<Rigidbody>().velocity = (-transform.forward * drawBackForce);
+        cube.GetComponent<Rigidbody>().AddForce(-Vector3.forward * drawBackForce );
+    }
+
+
+    void PullRope()
+    {
+
+        if (anchorCanDraw)
+        {
+
+            if (!GetComponent<Stabber>().sj)
+            {
+                player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.identity, 0.1f);
+                //cursor.DecreaseLength();
+                DrawCubeBack();
+                //player.GetComponent<Rigidbody>().AddForce(-transform.forward * 10f);
+            }
+            else
+            {
+                //cursor.DecreaseLength();
+                DrawCubeBack();
+                /*
+                drawBackForce += drawBackForce * Time.fixedDeltaTime;
+                player.GetComponent<Rigidbody>().mass = 0.01f;
+                player.GetComponent<Rigidbody>().AddForce(-transform.forward * drawBackForce * 2f);
+                */
+                }
+        }
+        else
+        {
+            submarinee.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            submarinee.GetComponent<Rigidbody>().AddForce(-Vector3.forward * 150f + Vector3.up * 100f);
+        }
+    }
+
+
 
     void PullIt()
     {
@@ -109,50 +194,4 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// THIS IS PREVIOUS WORK
-    /// </summary>
-
-    private void DrawBack()
-    {
-        //player.GetComponent<PlayerMotor>().limit = 0;
-        Transform firstRopeFragment = rope.transform.GetChild(0);
-        Transform ropeSource = rp.ropeSource.transform;
-        //Vector3 dir = new Vector3(0, 0, ropeSource.position.z - player.transform.position.z);
-        Vector3 dir = ropeSource.position - player.transform.position;
-        player.GetComponent<CharacterController>().Move(dir.normalized * drawBackForce * Time.deltaTime);
-
-
-
-
-        /*
-         * Solution 1 : Didnot work because of mass of rope
-         * Destroy(player.GetComponent<PlayerMotor>());
-        player.GetComponent<PlayerMotor>().limit = 0;
-        Transform firstRopeFragment = rope.transform.GetChild(0);
-        Transform ropeSource = rp.ropeSource.transform;
-        Vector3 dir = new Vector3(0,0,ropeSource.position.z - player.transform.position.z);
-        player.GetComponent<Rigidbody>().isKinematic = false;
-        Debug.Log(dir);
-        player.GetComponent<Rigidbody>().AddForce(dir.normalized * drawBackForce * Time.fixedDeltaTime);*/
-    }
-
-    private void DrawBackWithInput()
-    {
-        if(Input.GetMouseButton(0))
-        {
-            //submarine.MoveWithMouseInput();
-            StartCoroutine("ReleaseWallWithDelay");
-            if(allowMovement)   DrawBack();
-        }
-    }
-    IEnumerator ReleaseWallWithDelay()
-    {
-        yield return new WaitForSeconds(2.0f);
-        //bm.releaseWalls = true;
-        GetComponent<Stabbing>().ChangeTag();
-        GetComponent<Rigidbody>().isKinematic = false;
-        //GameManager.Instance.AddTagToCollision();
-        allowMovement = true;
-    }
 }

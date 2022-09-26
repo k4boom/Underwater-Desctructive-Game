@@ -40,21 +40,13 @@ public class PlayerCamera : MonoBehaviour
 
     void FollowPlayer()
     {
-        //Debug.Log("Camera pos: " + transform.position + " Player Pos: " + lookAt.position + " Desired Pos : " + desiredPosition);
         Vector2 player = new Vector2(lookAt.position.x, lookAt.position.z);
         Vector2 cam = new Vector2(transform.position.x, transform.position.z);
 
-        if (true)//Vector2.Distance(player, cam) > necessaryDistance)
-        {
-            //update position
-            desiredPosition = lookAt.position + (-transform.forward * distance) + (transform.up * offset);
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, 0.05f);
-            //update rotation
-            transform.LookAt(lookAt.position + (transform.up * offset));
-        } else
-        {
-            //transform.position = Vector3.Lerp(transform.position, transform.position - new Vector3(0.5f, 0, 0.5f), 0.05f);
-        }
+        desiredPosition = lookAt.position + (-lookAt.forward * distance) + (Vector3.up * offset);
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, 0.05f);
+        //update rotation
+        transform.LookAt(lookAt.position + (transform.up * offset));
     
     }
 
